@@ -12,7 +12,7 @@ var MainApp = React.createClass({
     // used when use clicks something that changes the current mode
     changeAppMode: function(newMode, productId){
         this.setState({currentMode: newMode});
-            if(productId !== undefined){
+        if(productId !== undefined){
             this.setState({productId: productId});
         }
     },
