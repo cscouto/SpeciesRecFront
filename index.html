@@ -1,53 +1,53 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <title>React CRUD</title>
-
-        <!-- Bootstrap CSS -->
-        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" media="screen" />
-
-        <!-- Custom CSS -->
-        <link href="app/assets/css/custom.css" rel="stylesheet" media="screen" />
-
-    </head>
-    <body>
-        <!-- container -->
-        <div class="container">
-            <div class="page-header">
-                <h1>Loading...</h1>
-            </div>
-
-            <!-- placeholder for rendering react components -->
-            <div id='content'></div>
-
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechOne</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/project.css" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="logo">
+        <h1>TECH ONE</h1>
+        <h3>ANÁLISE DE PLANTAS COM INTELIGÊNCIA ARTIFICIAL﻿</h3>
+      </div>
+    </header>
+      <div class="sub-header">
+        <div class="sub-header-buttons">
+          <span id="b1" class="col-xl-1 col-lg-2 col-md-2 col-sm-2 col-xs-10">Button 1</span>
+          <span id="b2" class="col-xl-1 col-lg-2 col-md-2 col-sm-2 col-xs-10">Button 2</span>
+          <span id="b3" class="col-xl-1 col-lg-2 col-md-2 col-sm-2 col-xs-10">Button 3</span>
+          <span id="b4" class="col-xl-1 col-lg-2 col-md-2 col-sm-2 col-xs-10">Button 4</span>
         </div>
-        <!-- /container -->
-
-        <!-- react js -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react-dom.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
-
-        <!-- react code -->
-        <script type="text/babel" src="app/product/update_product.component.js"></script>
-        <script type="text/babel" src="app/product/create_product.component.js"></script>
-        <script type="text/babel" src="app/product/read_one_product.component.js"></script>
-        <script type="text/babel" src="app/product/delete_product.component.js"></script>
-        <script type="text/babel" src="app/product/product_table_row.component.js"></script>
-        <script type="text/babel" src="app/product/product_table.component.js"></script>
-        <script type="text/babel" src="app/product/top_actions.component.js"></script>
-        <script type="text/babel" src="app/product/read_products.component.js"></script>
-        <script type="text/babel" src="app/main.component.js"></script>
-
-        <!-- jQuery library required by bootsrap js -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-        <!-- bootstrap JavaScript -->
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-    </body>
+      </div>
+    </div>
+    <div class="row">
+      <div class="forms col-centered col-xl-8 col-lg-8 col-md-10 col-sm-12 col-xs-12">
+        <div class="b1-form">
+          <div class="form-group">
+            <label for="Field 1">Field 1</label>
+            <input type="text" class="form-control" id="field1" aria-describedby="field1Help">
+            <small id="field1Help" class="form-text text-muted">Type 1 is used for...</small>
+          </div>
+          <div class="form-group">
+            <label for="Field 2">Field 2</label>
+            <input type="text" class="form-control" id="field2" aria-describedby="field2Help">
+            <small id="field2Help" class="form-text text-muted">Type 2 is used for...</small>
+          </div>
+          <div class="form-group">
+            <label for="Field 3">Field 3</label>
+            <input type="text" class="form-control" id="field3" aria-describedby="field3Help">
+            <small id="field3Help" class="form-text text-muted">Type 3 is used for...</small>
+          </div>
+          <div class="form-group form-buttons">
+            <button class="btn">Submit</button>
+            <button class="btn btn-clear">Clear Fields</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+  </body>
 </html>
