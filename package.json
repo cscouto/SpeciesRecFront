@@ -9,19 +9,20 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cscouto/react-skeleton.git"
+    "url": "git+https://github.com/devslopes/react-skeleton.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/cscouto/react-skeleton/issues"
+    "url": "https://github.com/devslopes/react-skeleton/issues"
   },
-  "homepage": "https://github.com/cscouto/react-skeleton#readme",
+  "homepage": "https://github.com/devslopes/react-skeleton#readme",
   "dependencies": {
-    "babel-preset-react": "^6.24.1",
-    "babelify": "^7.3.0",
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1",
-    "watchify": "^3.9.0"
+    "babel-preset-react": "^6.1.18",
+    "babelify": "^7.2.0",
+    "react": "^0.14.3",
+    "react-dom": "^0.14.3",
+    "watchify": "^3.6.1"
   }
 }
+
