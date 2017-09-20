@@ -18,20 +18,11 @@
   },
   "homepage": "https://github.com/devslopes/react-skeleton#readme",
   "dependencies": {
-<<<<<<< HEAD
-    "babel-preset-react": "^6.24.1",
-    "babelify": "^7.3.0",
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1",
-    "watchify": "^3.9.0",
-    "whatwg-fetch": "^2.0.3"
-=======
     "babel-preset-react": "^6.1.18",
     "babelify": "^7.2.0",
     "react": "^0.14.3",
     "react-dom": "^0.14.3",
     "watchify": "^3.6.1"
->>>>>>> 86b00d830372c7f90218ad5ab6a9fa517243e347
   }
 }
 
