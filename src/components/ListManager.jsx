@@ -1,21 +1,16 @@
 var React = require('react');
 var List = require('./List.jsx');
+var HTTP = require('../services/httpservice');
 
 var ListManager = React.createClass({
     getInitialState: function() {
-        return {items: ["casa", "test", "fdp"], newItemText:''};
+        return {items: []};
     },
-    onChange: function(e) {
-        this.setState({newItemText: e.target.value});
-    },
-    handleSubmit: function(e) {
-        e.preventDefault();
-        
-        var currentItems = this.state.items;
-        
-        currentItems.push(this.state.newItemText);
-        
-        this.setState({items: currentItems, newItemText:''});
+    componentWillMount: function() {
+      HTTP.get('/getSpecies')
+      .then(function(data){
+          this.setState({items: data.list});
+      }.bind(this));
     }, 
     render: function() {
         return (
@@ -24,7 +19,7 @@ var ListManager = React.createClass({
                         <h3>{this.props.title}</h3>
                     </div>
                     <div className="panel-body">
-                        <dl class="dl-horizontal">
+                        <dl className="dl-horizontal">
                             <List items={this.state.items} />
                         </dl>
                     </div>
