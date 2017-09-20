@@ -9,14 +9,15 @@ var List = React.createClass({
     componentWillMount: function() {
       HTTP.get('/getSpecies')
       .then(function(data){
-          this.setState({items: data});
+          this.setState({items: data.list});
       }.bind(this));
     },
     render: function() {
-        var listItems = this.state.items.list.map(function(item) {
+        var listItems = this.state.items.map(function(item) {
             return <ListItem key={item} text={item} />;
         });
         return (<u>{listItems}</u>);
     }
 });
+
 module.exports = List;

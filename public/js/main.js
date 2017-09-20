@@ -21630,11 +21630,11 @@ var List = React.createClass({
     },
     componentWillMount: function () {
         HTTP.get('/getSpecies').then(function (data) {
-            this.setState({ items: data });
+            this.setState({ items: data.list });
         }.bind(this));
     },
     render: function () {
-        var listItems = this.state.items.list.map(function (item) {
+        var listItems = this.state.items.map(function (item) {
             return React.createElement(ListItem, { key: item, text: item });
         });
         return React.createElement(
@@ -21644,6 +21644,7 @@ var List = React.createClass({
         );
     }
 });
+
 module.exports = List;
 
 },{"../services/httpservice":188,"./ListItem.jsx":186,"react":183}],186:[function(require,module,exports){
@@ -21676,15 +21677,8 @@ var baseURL = "https://speciesrecapi.herokuapp.com";
 
 var service = {
   get: function (url) {
-    console.log("makingrequest");
-    return fetch(baseURL + url, { 'mode': 'no-cors' });
-    then(function (response) {
-      console.log("makingrequests");
+    return fetch(baseURL + url).then(function (response) {
       return response.json();
-    }).then(function (json) {
-      console.log('parsed json', json);
-    }).catch(function (ex) {
-      console.log('parsing failed', ex);
     });
   }
 };
