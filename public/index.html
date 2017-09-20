@@ -1,13 +1,55 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>
-      CommonJS React Skeleton
-    </title>
-  </head>
-  <body>
-    <div id="ingredients">
-    </div>
-    <script src="js/main.js" />
-  </body>
+    <head>
+        <title>CommonJS React Skeleton</title>
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/bootstrap-grid.min.css">
+        <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="css/project.css">
+    </head>
+    <body>
+        <header class="header">
+          <div class="logo">
+            <h1>Deep Learning</h1>
+            <h3>Reconhecimento de Especies Florestais</h3>
+          </div>
+        </header>
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-4 col-lg-4">
+                    <button class="btn btn-primary" onclick="changePicture(); return false" >Carregar Imagem</button>
+                    <button class="btn btn-success">Classificar</button>
+                </div>
+                <div class="col-xs-12 col-sm-4 col-lg-4">
+                    <img id="image" src="noimage.jpg" class="img-rounded" alt="Cinque Terre" width="704" height="536">
+                     <input accept="image/*" type="file" id="upload" name="upload" onchange="readURL(this);"style="visibility: hidden;" />
+                </div>
+                <div class="col-xs-12 col-sm-4 col-lg-2">
+                    <div id="especies"></div>
+                </div>
+            </div>
+        </div>
+        <script>
+            function changePicture(){
+                $('#upload').click();
+            }
+            function readURL(input)
+            {
+                if (input.files && input.files[0])
+                {
+                    var reader = new FileReader();
+                    reader.onload = function (e)
+                    {
+                        $('#image')
+                        .attr('src',e.target.result);
+
+                    };
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+        </script>
+        <script src="js/jquery.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/main.js"></script>
+    </body>
 </html>
