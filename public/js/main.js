@@ -21691,15 +21691,18 @@ var LoadImage = React.createClass({
         var reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onload = function () {
-            this.setState({ image: reader.result });
+            var textoReplace = "data:image/jpeg;base64,";
+            var resultado_str = reader.result.substring(reader.result.indexOf(textoReplace) + textoReplace.length);
+            this.setState({ image: resultado_str });
         }.bind(this);
         reader.onerror = function (error) {
             console.log('Error: ', error);
         };
     },
     classify: function () {
-        HTTP.get('/getSpecie').then(function (data) {
+        HTTP.post('/getSpecie', this.state.image).then(function (data) {
             this.setState({ result: data });
+            console.log(data);
         }.bind(this));
     },
     render: function () {
@@ -21749,11 +21752,24 @@ var Fetch = require('whatwg-fetch');
 var baseURL = "https://speciesrecapi.herokuapp.com";
 
 var service = {
-  get: function (url) {
-    return fetch(baseURL + url).then(function (response) {
-      return response.json();
-    });
-  }
+    get: function (url) {
+        return fetch(baseURL + url).then(function (response) {
+            return response.json();
+        });
+    },
+    post: function (url, imageData) {
+        return fetch(baseURL + url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                image: imageData
+            })
+        }).then(function (response) {
+            return response.json();
+        });
+    }
 };
 
 module.exports = service;

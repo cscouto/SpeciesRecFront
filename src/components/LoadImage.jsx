@@ -23,16 +23,19 @@ var LoadImage = React.createClass({
         var reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onload = function () {
-            this.setState({image: reader.result});
+            var textoReplace = "data:image/jpeg;base64,";
+            var resultado_str = reader.result.substring(reader.result.indexOf(textoReplace) + textoReplace.length);
+            this.setState({image: resultado_str});
         }.bind(this);
         reader.onerror = function (error) {
             console.log('Error: ', error);
         };
     },
     classify: function(){
-        HTTP.get('/getSpecie')
+        HTTP.post('/getSpecie', this.state.image)
       .then(function(data){
-          this.setState({result: data});
+            this.setState({result: data});
+            console.log(data)
       }.bind(this));
     },
     render: function(){
