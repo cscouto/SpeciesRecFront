@@ -21647,7 +21647,7 @@ var List = React.createClass({
 
 module.exports = List;
 
-},{"../services/httpservice":188,"./ListItem.jsx":186,"react":183}],186:[function(require,module,exports){
+},{"../services/httpservice":189,"./ListItem.jsx":186,"react":183}],186:[function(require,module,exports){
 var React = require('react');
 
 var ListItem = React.createClass({
@@ -21666,12 +21666,85 @@ module.exports = ListItem;
 
 },{"react":183}],187:[function(require,module,exports){
 var React = require('react');
+var HTTP = require('../services/httpservice');
+
+var LoadImage = React.createClass({
+    displayName: 'LoadImage',
+
+    getInitialState: function () {
+        return { image: '', result: '' };
+    },
+    changePicture: function () {
+        $('#upload').click();
+    },
+    readURL: function (e) {
+        if (e.target.files && e.target.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#image').attr('src', e.target.result);
+            };
+            reader.readAsDataURL(e.target.files[0]);
+            this.getBase64(e.target.files[0]);
+        }
+    },
+    getBase64: function (file) {
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function () {
+            this.setState({ image: reader.result });
+        }.bind(this);
+        reader.onerror = function (error) {
+            console.log('Error: ', error);
+        };
+    },
+    classify: function () {
+        HTTP.get('/getSpecie').then(function (data) {
+            this.setState({ result: data });
+        }.bind(this));
+    },
+    render: function () {
+        var divStyle = {
+            visibility: 'hidden'
+        };
+        return React.createElement(
+            'div',
+            null,
+            React.createElement(
+                'div',
+                { className: 'col-xs-12 col-sm-4 col-lg-4' },
+                React.createElement(
+                    'button',
+                    { className: 'btn btn-primary', onClick: this.changePicture },
+                    ' Carregar Imagem'
+                ),
+                React.createElement(
+                    'button',
+                    { className: 'btn btn-success', onClick: this.classify },
+                    'Classificar'
+                )
+            ),
+            React.createElement(
+                'div',
+                { className: 'col-xs-12 col-sm-4 col-lg-4' },
+                React.createElement('img', { id: 'image', src: 'noimage.jpg', className: 'img-rounded', width: '704', height: '536' }),
+                React.createElement('input', { accept: 'image/*', type: 'file', id: 'upload', name: 'upload', onChange: this.readURL, style: divStyle })
+            )
+        );
+    }
+});
+
+module.exports = LoadImage;
+
+},{"../services/httpservice":189,"react":183}],188:[function(require,module,exports){
+var React = require('react');
 var ReactDOM = require('react-dom');
 var ListManager = require('./components/List.jsx');
+var LoadImage = require('./components/LoadImage.jsx');
 
+ReactDOM.render(React.createElement(LoadImage, null), document.getElementById('loadimage'));
 ReactDOM.render(React.createElement(ListManager, { title: 'Especies' }), document.getElementById('especies'));
 
-},{"./components/List.jsx":185,"react":183,"react-dom":31}],188:[function(require,module,exports){
+},{"./components/List.jsx":185,"./components/LoadImage.jsx":187,"react":183,"react-dom":31}],189:[function(require,module,exports){
 var Fetch = require('whatwg-fetch');
 var baseURL = "https://speciesrecapi.herokuapp.com";
 
@@ -21685,4 +21758,4 @@ var service = {
 
 module.exports = service;
 
-},{"whatwg-fetch":184}]},{},[187]);
+},{"whatwg-fetch":184}]},{},[188]);
