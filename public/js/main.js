@@ -21701,8 +21701,15 @@ var LoadImage = React.createClass({
     },
     classify: function () {
         HTTP.post('/getSpecie', this.state.image).then(function (data) {
-            this.setState({ result: data });
-            console.log(data);
+            var array = data.list;
+            var res = Math.max.apply(Math, array.map(function (o) {
+                return o.percent;
+            }));
+            var obj = array.find(function (o) {
+                return o.percent == res;
+            });
+            this.setState({ result: obj });
+            console.log(obj);
         }.bind(this));
     },
     render: function () {
@@ -21729,6 +21736,11 @@ var LoadImage = React.createClass({
             React.createElement(
                 'div',
                 { className: 'col-xs-12 col-sm-4 col-lg-4' },
+                React.createElement(
+                    'h3',
+                    null,
+                    this.state.result.name
+                ),
                 React.createElement('img', { id: 'image', src: 'noimage.jpg', className: 'img-rounded', width: '704', height: '536' }),
                 React.createElement('input', { accept: 'image/*', type: 'file', id: 'upload', name: 'upload', onChange: this.readURL, style: divStyle })
             )
