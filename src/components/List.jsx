@@ -16,7 +16,7 @@ var List = React.createClass({
         var listItems = this.state.items.map(function(item) {
             return <ListItem key={item} text={item} />;
         });
-        return (<u>{listItems}</u>);
+        return (<ul className="list-group">{listItems}</ul>);
     }
 });
 

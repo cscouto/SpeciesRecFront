@@ -37,6 +37,7 @@ var LoadImage = React.createClass({
             var array = data.list
             var res = Math.max.apply(Math,array.map(function(o){return o.percent;}))
             var obj = array.find(function(o){ return o.percent == res; })
+            obj.percent = obj.percent * 100
             this.setState({result: obj});
             console.log(obj);
       }.bind(this));
@@ -46,16 +47,24 @@ var LoadImage = React.createClass({
             visibility: 'hidden'
         }
         return (
-            <div>
-                <div className="col-xs-12 col-sm-4 col-lg-4">
-                    <button className="btn btn-primary" onClick={this.changePicture}> Carregar Imagem</button>
-                    <button className="btn btn-success" onClick={this.classify}>Classificar</button>
-                </div>
-                <div className="col-xs-12 col-sm-4 col-lg-4">
-                    <h3>{this.state.result.name}</h3>
-                    <img id="image" src="noimage.jpg" className="img-rounded" width="704" height="536" />
-                    <input accept="image/*" type="file" id="upload" name="upload" onChange={this.readURL} style={divStyle} />
-                </div>
+            <div className="row">
+                        <div className="col-xs-12 col-sm-3">
+                            <div className="row">
+                                <button className="btn btn-primary" onClick={this.changePicture}>Carregar Imagem</button>
+                            </div>
+                            <div className="row">
+                                <button className="btn btn-success" onClick={this.classify}>Classificar</button>
+                            </div>
+                            <div className="row">
+                                <h4>Especie: {this.state.result.name} Probabilidade: {this.state.result.percent}%</h4>
+                            </div>
+                        </div>
+                        <div className="col-xs-12 col-sm-9">
+                            <div className="limit">
+                                <img id="image" src="noimage.jpg" className="img-rounded" />
+                                <input accept="image/*" type="file" id="upload" name="upload" onChange={this.readURL} style={divStyle} />
+                            </div>
+                        </div>
             </div>
         );
     }

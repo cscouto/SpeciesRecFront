@@ -21638,8 +21638,8 @@ var List = React.createClass({
             return React.createElement(ListItem, { key: item, text: item });
         });
         return React.createElement(
-            'u',
-            null,
+            'ul',
+            { className: 'list-group' },
             listItems
         );
     }
@@ -21651,12 +21651,12 @@ module.exports = List;
 var React = require('react');
 
 var ListItem = React.createClass({
-    displayName: 'ListItem',
+    displayName: "ListItem",
 
     render: function () {
         return React.createElement(
-            'h4',
-            null,
+            "a",
+            { className: "list-group-item " },
             this.props.text
         );
     }
@@ -21708,6 +21708,7 @@ var LoadImage = React.createClass({
             var obj = array.find(function (o) {
                 return o.percent == res;
             });
+            obj.percent = obj.percent * 100;
             this.setState({ result: obj });
             console.log(obj);
         }.bind(this));
@@ -21718,31 +21719,51 @@ var LoadImage = React.createClass({
         };
         return React.createElement(
             'div',
-            null,
+            { className: 'row' },
             React.createElement(
                 'div',
-                { className: 'col-xs-12 col-sm-4 col-lg-4' },
+                { className: 'col-xs-12 col-sm-3' },
                 React.createElement(
-                    'button',
-                    { className: 'btn btn-primary', onClick: this.changePicture },
-                    ' Carregar Imagem'
+                    'div',
+                    { className: 'row' },
+                    React.createElement(
+                        'button',
+                        { className: 'btn btn-primary', onClick: this.changePicture },
+                        'Carregar Imagem'
+                    )
                 ),
                 React.createElement(
-                    'button',
-                    { className: 'btn btn-success', onClick: this.classify },
-                    'Classificar'
+                    'div',
+                    { className: 'row' },
+                    React.createElement(
+                        'button',
+                        { className: 'btn btn-success', onClick: this.classify },
+                        'Classificar'
+                    )
+                ),
+                React.createElement(
+                    'div',
+                    { className: 'row' },
+                    React.createElement(
+                        'h4',
+                        null,
+                        'Especie: ',
+                        this.state.result.name,
+                        ' Probabilidade: ',
+                        this.state.result.percent,
+                        '%'
+                    )
                 )
             ),
             React.createElement(
                 'div',
-                { className: 'col-xs-12 col-sm-4 col-lg-4' },
+                { className: 'col-xs-12 col-sm-9' },
                 React.createElement(
-                    'h3',
-                    null,
-                    this.state.result.name
-                ),
-                React.createElement('img', { id: 'image', src: 'noimage.jpg', className: 'img-rounded', width: '704', height: '536' }),
-                React.createElement('input', { accept: 'image/*', type: 'file', id: 'upload', name: 'upload', onChange: this.readURL, style: divStyle })
+                    'div',
+                    { className: 'limit' },
+                    React.createElement('img', { id: 'image', src: 'noimage.jpg', className: 'img-rounded' }),
+                    React.createElement('input', { accept: 'image/*', type: 'file', id: 'upload', name: 'upload', onChange: this.readURL, style: divStyle })
+                )
             )
         );
     }

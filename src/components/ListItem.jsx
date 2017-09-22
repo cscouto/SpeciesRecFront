@@ -3,7 +3,7 @@ var React = require('react');
 var ListItem = React.createClass({
     render: function() {
         return (
-                <h4>{this.props.text}</h4>
+                <a  className="list-group-item ">{this.props.text}</a>
         );
     }
 });
