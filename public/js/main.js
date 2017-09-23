@@ -21672,7 +21672,7 @@ var LoadImage = React.createClass({
     displayName: 'LoadImage',
 
     getInitialState: function () {
-        return { image: '', result: '', loading: 'none' };
+        return { image: '', result: '', loading: 'none', modal: 'none' };
     },
     changePicture: function () {
         $('#upload').click();
@@ -21699,6 +21699,9 @@ var LoadImage = React.createClass({
             console.log('Error: ', error);
         };
     },
+    closeModal: function () {
+        this.setState({ modal: 'none' });
+    },
     classify: function () {
         this.setState({ loading: 'block' });
         HTTP.post('/getSpecie', this.state.image).then(function (data) {
@@ -21711,7 +21714,7 @@ var LoadImage = React.createClass({
             });
             obj.percent = obj.percent * 100;
             this.setState({ result: obj });
-            this.setState({ loading: 'none' });
+            this.setState({ loading: 'none', modal: 'block' });
         }.bind(this));
     },
     render: function () {
@@ -21721,7 +21724,9 @@ var LoadImage = React.createClass({
         var loadStyle = {
             display: this.state.loading
         };
-
+        var modalStyle = {
+            display: this.state.modal
+        };
         return React.createElement(
             'div',
             { className: 'row' },
@@ -21745,25 +21750,42 @@ var LoadImage = React.createClass({
                         { className: 'btn btn-success', onClick: this.classify },
                         'Classificar'
                     )
-                ),
-                React.createElement(
-                    'div',
-                    { className: 'row' },
-                    React.createElement(
-                        'h4',
-                        null,
-                        'Especie: ',
-                        this.state.result.name,
-                        ' Probabilidade: ',
-                        this.state.result.percent,
-                        '%'
-                    )
                 )
             ),
             React.createElement(
                 'div',
                 { className: 'col-xs-12 col-sm-9' },
                 React.createElement('div', { id: 'loader', style: loadStyle }),
+                React.createElement(
+                    'div',
+                    { className: 'modal', style: modalStyle },
+                    React.createElement(
+                        'div',
+                        { className: 'modal-content' },
+                        React.createElement(
+                            'span',
+                            { className: 'close', onClick: this.closeModal },
+                            '\xD7'
+                        ),
+                        React.createElement(
+                            'div',
+                            { className: 'info' },
+                            React.createElement(
+                                'h4',
+                                null,
+                                'Especie: ',
+                                this.state.result.name
+                            ),
+                            React.createElement(
+                                'h4',
+                                null,
+                                'Probabilidade: ',
+                                this.state.result.percent,
+                                '%'
+                            )
+                        )
+                    )
+                ),
                 React.createElement(
                     'div',
                     { className: 'limit' },

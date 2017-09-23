@@ -3,7 +3,7 @@ var HTTP = require('../services/httpservice');
 
 var LoadImage = React.createClass({
     getInitialState: function() {
-        return {image:'', result: '', loading: 'none'};
+        return {image:'', result: '', loading: 'none', modal: 'none'};
     },
     changePicture: function(){
         $('#upload').click();
@@ -31,6 +31,9 @@ var LoadImage = React.createClass({
             console.log('Error: ', error);
         };
     },
+    closeModal: function() {
+       this.setState({modal: 'none'});
+    },
     classify: function(){
         this.setState({loading: 'block'});
         HTTP.post('/getSpecie', this.state.image)
@@ -40,7 +43,7 @@ var LoadImage = React.createClass({
             var obj = array.find(function(o){ return o.percent == res; })
             obj.percent = obj.percent * 100
             this.setState({result: obj});
-            this.setState({loading: 'none'});
+            this.setState({loading: 'none', modal: 'block'});
       }.bind(this));
     },
     render: function(){
@@ -50,7 +53,9 @@ var LoadImage = React.createClass({
         var loadStyle = {
             display: this.state.loading
         }
-
+        var modalStyle = {
+            display: this.state.modal
+        }
         return (
             <div className="row">
                         <div className="col-xs-12 col-sm-3">
@@ -60,12 +65,18 @@ var LoadImage = React.createClass({
                             <div className="row">
                                 <button className="btn btn-success" onClick={this.classify}>Classificar</button>
                             </div>
-                            <div className="row">
-                                <h4>Especie: {this.state.result.name} Probabilidade: {this.state.result.percent}%</h4>
-                            </div>
                         </div>
                         <div className="col-xs-12 col-sm-9">
-                            <div id="loader"style={loadStyle} ></div>
+                            <div id="loader" style={loadStyle}></div>
+                            <div className="modal" style={modalStyle}>
+                            <div className="modal-content">
+                                <span className="close" onClick={this.closeModal}>&times;</span>
+                                <div className="info">
+                                    <h4>Especie: {this.state.result.name}</h4>
+                                    <h4>Probabilidade: {this.state.result.percent}%</h4>
+                                </div>
+                            </div>
+                            </div>
                             <div className="limit">
                                 <img id="image" src="noimage.jpg" className="img-rounded" />
                                 <input accept="image/*" type="file" id="upload" name="upload" onChange={this.readURL} style={divStyle} />
