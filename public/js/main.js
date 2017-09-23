@@ -21672,7 +21672,7 @@ var LoadImage = React.createClass({
     displayName: 'LoadImage',
 
     getInitialState: function () {
-        return { image: '', result: '' };
+        return { image: '', result: '', loading: 'none' };
     },
     changePicture: function () {
         $('#upload').click();
@@ -21700,6 +21700,7 @@ var LoadImage = React.createClass({
         };
     },
     classify: function () {
+        this.setState({ loading: 'block' });
         HTTP.post('/getSpecie', this.state.image).then(function (data) {
             var array = data.list;
             var res = Math.max.apply(Math, array.map(function (o) {
@@ -21710,13 +21711,17 @@ var LoadImage = React.createClass({
             });
             obj.percent = obj.percent * 100;
             this.setState({ result: obj });
-            console.log(obj);
+            this.setState({ loading: 'none' });
         }.bind(this));
     },
     render: function () {
         var divStyle = {
             visibility: 'hidden'
         };
+        var loadStyle = {
+            display: this.state.loading
+        };
+
         return React.createElement(
             'div',
             { className: 'row' },
@@ -21758,6 +21763,7 @@ var LoadImage = React.createClass({
             React.createElement(
                 'div',
                 { className: 'col-xs-12 col-sm-9' },
+                React.createElement('div', { id: 'loader', style: loadStyle }),
                 React.createElement(
                     'div',
                     { className: 'limit' },

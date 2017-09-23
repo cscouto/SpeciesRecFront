@@ -3,7 +3,7 @@ var HTTP = require('../services/httpservice');
 
 var LoadImage = React.createClass({
     getInitialState: function() {
-        return {image:'', result: ''};
+        return {image:'', result: '', loading: 'none'};
     },
     changePicture: function(){
         $('#upload').click();
@@ -32,6 +32,7 @@ var LoadImage = React.createClass({
         };
     },
     classify: function(){
+        this.setState({loading: 'block'});
         HTTP.post('/getSpecie', this.state.image)
       .then(function(data){
             var array = data.list
@@ -39,13 +40,17 @@ var LoadImage = React.createClass({
             var obj = array.find(function(o){ return o.percent == res; })
             obj.percent = obj.percent * 100
             this.setState({result: obj});
-            console.log(obj);
+            this.setState({loading: 'none'});
       }.bind(this));
     },
     render: function(){
         var divStyle = {
             visibility: 'hidden'
         }
+        var loadStyle = {
+            display: this.state.loading
+        }
+
         return (
             <div className="row">
                         <div className="col-xs-12 col-sm-3">
@@ -60,6 +65,7 @@ var LoadImage = React.createClass({
                             </div>
                         </div>
                         <div className="col-xs-12 col-sm-9">
+                            <div id="loader"style={loadStyle} ></div>
                             <div className="limit">
                                 <img id="image" src="noimage.jpg" className="img-rounded" />
                                 <input accept="image/*" type="file" id="upload" name="upload" onChange={this.readURL} style={divStyle} />
